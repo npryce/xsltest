@@ -71,18 +71,19 @@ They assume that:
    imports all the other test suites in the test directory.
 
 
-    build/testing/%.xslt: src/%-test.xslt
-    	@mkdir -p $(dir $@)
-    	saxon -xsl:$(XSLTEST_HOME)/xsltest.xslt -s:$< -o:$@
+        build/testing/%.xslt: src/%-test.xslt
+        	@mkdir -p $(dir $@)
+        	saxon -xsl:$(XSLTEST_HOME)/xsltest.xslt -s:$< -o:$@
     
-    build/testing/results.xml: $(XSLT_TESTS:tests/%.xslt=build/testing/%.xslt) $(XSLT)
-    	saxon -xsl:build/testing/all-tests.xslt -it:all-tests -o:$@
+        build/testing/results.xml: $(XSLT_TESTS:tests/%.xslt=build/testing/%.xslt) $(XSLT)
+        	saxon -xsl:build/testing/all-tests.xslt -it:all-tests -o:$@
+        
+        build/testing/report.html: build/testing/results.xml
+        	saxon -xsl:$(XSLTEST_HOME)/report.xslt -s:$< -o:$@
     
-    build/testing/report.html: build/testing/results.xml
-    	saxon -xsl:$(XSLTEST_HOME)/report.xslt -s:$< -o:$@
-    
-    # Avoid saxon's slow startup if we can say for sure that no tests failed
-    check: build/testing/report.html
-    	@if grep -q -m 1 'result="failed"' build/testing/results.xml; then \
-    	    saxon -xsl:$(XSLTEST_HOME)/test-abort-build.xslt -s:build/testing/results.xml; \
-    	fi
+        # Avoid saxon's slow startup if we can say for sure that no tests failed
+        check: build/testing/report.html
+        	@if grep -q -m 1 'result="failed"' build/testing/results.xml; then \
+        	    saxon -xsl:$(XSLTEST_HOME)/test-abort-build.xslt -s:build/testing/results.xml; \
+        	fi
+
