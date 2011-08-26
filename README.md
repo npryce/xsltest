@@ -36,10 +36,10 @@ XSLTest elements are defined in the namespace http://www.natpryce.com/xsltest/1.
 The entry-point to a test suite is a named XSLT template.  For example:
 
     <xsl:stylesheet version="2.0"
-                    xmlns="http://www.w3.org/1999/xhtml"
-                    xmlns:html="http://www.w3.org/1999/xhtml"
-                    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                    xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                    xmlns="http://www.w3.org/1999/xhtml" 
+                    xmlns:html="http://www.w3.org/1999/xhtml" 
+                    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                    xmlns:fn="http://www.w3.org/2005/xpath-functions" 
                     xmlns:test="http://www.natpryce.com/xsltest/1.0">
 
       <xsl:import href="mycode.xslt"/>
@@ -72,17 +72,17 @@ They assume that:
 
 
     build/testing/%.xslt: src/%-test.xslt
-	@mkdir -p $(dir $@)
-	saxon -xsl:$(XSLTEST_HOME)/xsltest.xslt -s:$< -o:$@
-
+    	@mkdir -p $(dir $@)
+    	saxon -xsl:$(XSLTEST_HOME)/xsltest.xslt -s:$< -o:$@
+    
     build/testing/results.xml: $(XSLT_TESTS:tests/%.xslt=build/testing/%.xslt) $(XSLT)
-	saxon -xsl:build/testing/all-tests.xslt -it:all-tests -o:$@
-
+    	saxon -xsl:build/testing/all-tests.xslt -it:all-tests -o:$@
+    
     build/testing/report.html: build/testing/results.xml
-	saxon -xsl:$(XSLTEST_HOME)/report.xslt -s:$< -o:$@
-
+    	saxon -xsl:$(XSLTEST_HOME)/report.xslt -s:$< -o:$@
+    
     # Avoid saxon's slow startup if we can say for sure that no tests failed
     check: build/testing/report.html
- 	@if grep -q -m 1 'result="failed"' build/testing/results.xml; then \
-	    saxon -xsl:$(XSLTEST_HOME)/test-abort-build.xslt -s:build/testing/results.xml; \
-	fi
+    	@if grep -q -m 1 'result="failed"' build/testing/results.xml; then \
+    	    saxon -xsl:$(XSLTEST_HOME)/test-abort-build.xslt -s:build/testing/results.xml; \
+    	fi
