@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:test="http://www.natpryce.com/testxslt/1.0"
-		xmlns:xslo="http://www.natpryce.com/testxslt/1.0/xsltoutput">
+		xmlns:test="http://www.natpryce.com/xsltest/1.0"
+		xmlns:xslo="http://www.natpryce.com/xsltest/1.0/xsltoutput">
   
   <xsl:output method="xml" indent="yes"/>
   <xsl:namespace-alias stylesheet-prefix="xslo" result-prefix="xsl"/>

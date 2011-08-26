@@ -2,7 +2,7 @@
 <xsl:stylesheet version="2.0"
 		xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:test="http://www.natpryce.com/testxslt/1.0"
+		xmlns:test="http://www.natpryce.com/xsltest/1.0"
 		exclude-result-prefixes="test">
   
   <xsl:import href="xmlverbatim.xslt"/>
