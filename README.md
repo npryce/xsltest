@@ -4,8 +4,8 @@ XSLTest: a Tiny Testing Library for XSLT Transformations.
 Requirements:
 -------------
 
-* An XSLT 2 processor, such as Saxon.
-* A web browser to view the test reports.
+ * An XSLT 2 processor, such as Saxon.
+ * A web browser to view the test reports.
 
 
 Overview
@@ -26,6 +26,9 @@ assertions and generates results in XML format.  XSLTest's
 XSLTest also provides a stylesheet, `test-abort-build.xslt`, that
 fails if the results XML contain any test failures.  This is useful
 for aborting the build when tests fail.
+
+Example tests written with XSLTest can be found here: 
+[https://github.com/npryce/courseware-html/tree/master/tests](https://github.com/npryce/courseware-html/tree/master/tests)
 
 
 Test Suite Structure and XML Namespaces
@@ -60,13 +63,6 @@ Example Makefile Rules
 
 The following example Makefile rules implement the XSLTest processing pipeline.
 
-They assume that:
-
-* The variable XSLTEST_HOME refers to the directory containing the XSLTest stylesheets.
-* The test suite files all have the suffix `-test.xslt` and are in the `src/` directory alongside the code under test.
-* Output is generated into a scratch directory named `build/testing`.
-* There is a single root test suite, named `all-tests.xslt`, that imports all the other test suites in the test directory.
-
 
 	build/testing/%.xslt: src/%-test.xslt
 		@mkdir -p $(dir $@)
@@ -84,3 +80,10 @@ They assume that:
 			saxon -xsl:$(XSLTEST_HOME)/test-abort-build.xslt -s:build/testing/results.xml; \
 		fi
 
+
+The rules assume that:
+
+ * The variable XSLTEST_HOME refers to the directory containing the XSLTest stylesheets.
+ * The test suite files all have the suffix `-test.xslt` and are in the `src/` directory alongside the code under test.
+ * Output is generated into a scratch directory named `build/testing`.
+ * There is a single root test suite, named `all-tests.xslt`, that imports all the other test suites in the test directory.
