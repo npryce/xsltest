@@ -4,8 +4,8 @@ XSLTest: a Tiny Testing Library for XSLT Transformations.
 Requirements:
 -------------
 
- * An XSLT 2 processor, such as Saxon.
- * A web browser to view the test reports.
+* An XSLT 2 processor, such as Saxon.
+* A web browser to view the test reports.
 
 
 Overview
@@ -62,25 +62,25 @@ The following example Makefile rules implement the XSLTest processing pipeline.
 
 They assume that:
 
- * The variable XSLTEST_HOME refers to the directory containing the XSLTest stylesheets.
- * The test suite files all have the suffix `-test.xslt` and are in the `src/` directory alongside the code under test.
- * Output is generated into a scratch directory named `build/testing`.
- * There is a single root test suite, named `all-tests.xslt`, that imports all the other test suites in the test directory.
+* The variable XSLTEST_HOME refers to the directory containing the XSLTest stylesheets.
+* The test suite files all have the suffix `-test.xslt` and are in the `src/` directory alongside the code under test.
+* Output is generated into a scratch directory named `build/testing`.
+* There is a single root test suite, named `all-tests.xslt`, that imports all the other test suites in the test directory.
 
 
-        build/testing/%.xslt: src/%-test.xslt
-        	@mkdir -p $(dir $@)
-        	saxon -xsl:$(XSLTEST_HOME)/xsltest.xslt -s:$< -o:$@
+	build/testing/%.xslt: src/%-test.xslt
+		@mkdir -p $(dir $@)
+		saxon -xsl:$(XSLTEST_HOME)/xsltest.xslt -s:$< -o:$@
     
-        build/testing/results.xml: $(XSLT_TESTS:tests/%.xslt=build/testing/%.xslt) $(XSLT)
-        	saxon -xsl:build/testing/all-tests.xslt -it:all-tests -o:$@
+	build/testing/results.xml: $(XSLT_TESTS:tests/%.xslt=build/testing/%.xslt) $(XSLT)
+		saxon -xsl:build/testing/all-tests.xslt -it:all-tests -o:$@
         
-        build/testing/report.html: build/testing/results.xml
-        	saxon -xsl:$(XSLTEST_HOME)/report.xslt -s:$< -o:$@
+	build/testing/report.html: build/testing/results.xml
+		saxon -xsl:$(XSLTEST_HOME)/report.xslt -s:$< -o:$@
     
-        # Avoid saxon's slow startup if we can say for sure that no tests failed
-        check: build/testing/report.html
-        	@if grep -q -m 1 'result="failed"' build/testing/results.xml; then \
-        	    saxon -xsl:$(XSLTEST_HOME)/test-abort-build.xslt -s:build/testing/results.xml; \
-        	fi
+	# Avoid saxon's slow startup if we can say for sure that no tests failed
+	check: build/testing/report.html
+		@if grep -q -m 1 'result="failed"' build/testing/results.xml; then \
+			saxon -xsl:$(XSLTEST_HOME)/test-abort-build.xslt -s:build/testing/results.xml; \
+		fi
 
