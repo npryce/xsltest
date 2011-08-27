@@ -62,13 +62,10 @@ The following example Makefile rules implement the XSLTest processing pipeline.
 
 They assume that:
 
- * The variable XSLTEST_HOME refers to the directory containing the
-   XSLTest stylesheets.
- * The test suite files all have the suffix `-test.xslt` and are in the
-   `src/` directory alongside the code under test.
+ * The variable XSLTEST_HOME refers to the directory containing the XSLTest stylesheets.
+ * The test suite files all have the suffix `-test.xslt` and are in the `src/` directory alongside the code under test.
  * Output is generated into a scratch directory named `build/testing`.
- * There is a single root test suite, named `all-tests.xslt`, that
-   imports all the other test suites in the test directory.
+ * There is a single root test suite, named `all-tests.xslt`, that imports all the other test suites in the test directory.
 
 
         build/testing/%.xslt: src/%-test.xslt
