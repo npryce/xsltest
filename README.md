@@ -66,7 +66,7 @@ They assume that:
    XSLTest stylesheets.
  * The test suite files all have the suffix `-test.xslt` and are in the
    `src/` directory alongside the code under test.
- * Output is generated into a scratch directory named `build/testing`
+ * Output is generated into a scratch directory named `build/testing`.
  * There is a single root test suite, named `all-tests.xslt`, that
    imports all the other test suites in the test directory.
 
