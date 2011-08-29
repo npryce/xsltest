@@ -1,5 +1,5 @@
-XSLTest: a Tiny Testing Library for XSLT Transformations.
-=========================================================
+XSLTest: XSLT easy stylesheet testing
+=====================================
 
 Requirements:
 -------------
