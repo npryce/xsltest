@@ -88,7 +88,7 @@
     </xsl:if>
   </xsl:template>
   
-  <xsl:template match="test:original|test:expected|test:transformed|test:actual|test:expr|test:show-working">
+  <xsl:template match="test:original|test:expected|test:transformed|test:actual|test:expr|test:diagnostic">
     <div class="xmlverb-default">
       <xsl:apply-templates mode="xmlverb">
         <xsl:with-param name="indent-elements" select="true()"/>

@@ -54,7 +54,9 @@
 	<xsl:copy-of select="test:original/*"/>
       </xslo:variable>
       <xslo:variable name="transformed">
-	<xslo:apply-templates select="$original"/>
+	<xslo:apply-templates select="$original">
+	  <xsl:copy-of select="xsl:with-param"/>
+	</xslo:apply-templates>
       </xslo:variable>
       <xslo:variable name="expected">
 	<xsl:copy-of select="test:expected/*"/>
@@ -67,7 +69,7 @@
 	</xslo:choose>
       </xslo:attribute>
       
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="*[namespace-uri() != 'http://www.w3.org/1999/XSL/Transform']"/>
       
       <test:transformed>
 	<xslo:copy-of select="$transformed"/>
@@ -75,10 +77,10 @@
     </test:assert>
   </xsl:template>
   
-  <xsl:template match="test:show-working">
-    <test:show-working>
+  <xsl:template match="test:diagnostic">
+    <test:diagnostic>
       <xslo:copy-of select="{@select}"/>
-    </test:show-working>
+    </test:diagnostic>
   </xsl:template>
   
   <xsl:template match="test:suite|test:original|test:expected|test:transformed">
