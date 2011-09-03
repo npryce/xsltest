@@ -19,12 +19,7 @@
     <test:assert>
       <xsl:apply-templates select="@*"/>
       
-      <xslo:attribute name="result">
-	<xslo:choose>
-	  <xslo:when test="{@that}">passed</xslo:when>
-	  <xslo:otherwise>failed</xslo:otherwise>
-	</xslo:choose>
-      </xslo:attribute>
+      <xslo:attribute name="result" select="if ({@that}) then 'passed' else 'failed'"/>
       
       <xsl:apply-templates/>
     </test:assert>
@@ -35,16 +30,12 @@
       <xslo:variable name="actual" select="{@actual}"/>
       <xslo:variable name="expected" select="{@expected}"/>
       
-      <xslo:attribute name="result">
-	<xslo:choose>
-	  <xslo:when test="deep-equal($actual, $expected)">passed</xslo:when>
-	  <xslo:otherwise>failed</xslo:otherwise>
-	</xslo:choose>
-      </xslo:attribute>
+      <xslo:attribute name="result" 
+		      select="if (deep-equal($actual, $expected)) then 'passed' else 'failed'"/>
       
       <test:expr><xsl:value-of select="@actual"/></test:expr>
-      <test:actual><xslo:value-of select="$actual"/></test:actual>
-      <test:expected><xslo:value-of select="$expected"/></test:expected>
+      <test:actual><xslo:copy-of select="{@actual}"/></test:actual>
+      <test:expected><xslo:copy-of select="{@expected}"/></test:expected>
     </test:assert>
   </xsl:template>
   
@@ -62,12 +53,8 @@
 	<xsl:copy-of select="test:expected/*"/>
       </xslo:variable>
       
-      <xslo:attribute name="result">
-	<xslo:choose>
-	  <xslo:when test="deep-equal($transformed, $expected)">passed</xslo:when>
-	  <xslo:otherwise>failed</xslo:otherwise>
-	</xslo:choose>
-      </xslo:attribute>
+      <xslo:attribute name="result" 
+		      select="if (deep-equal($transformed, $expected)) then 'passed' else 'failed'"/>
       
       <xsl:apply-templates select="*[namespace-uri() != 'http://www.w3.org/1999/XSL/Transform']"/>
       
