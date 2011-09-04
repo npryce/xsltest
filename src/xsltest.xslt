@@ -27,11 +27,8 @@
   
   <xsl:template match="test:assert-equal|test:assert-equals">
     <test:assert>
-      <xslo:variable name="actual" select="{@actual}"/>
-      <xslo:variable name="expected" select="{@expected}"/>
-      
       <xslo:attribute name="result" 
-		      select="if (deep-equal($actual, $expected)) then 'passed' else 'failed'"/>
+		      select="if (deep-equal({@actual}, {@expected})) then 'passed' else 'failed'"/>
       
       <test:expr><xsl:value-of select="@actual"/></test:expr>
       <test:actual><xslo:copy-of select="{@actual}"/></test:actual>
