@@ -5,7 +5,7 @@
 		xmlns:test="http://www.natpryce.com/xsltest/1.0"
 		exclude-result-prefixes="test">
   
-  <xsl:import href="xmlverbatim.xslt"/>
+  <xsl:import href="xml-to-string.xslt"/>
   
   <xsl:output method="xhtml"
 	      indent="yes"
@@ -89,9 +89,9 @@
   
   <xsl:template match="test:original|test:expected|test:transformed|test:actual|test:expr|test:diagnostic">
     <div class="xmlverb-default">
-      <xsl:apply-templates mode="xmlverb">
-        <xsl:with-param name="indent-elements" select="true()"/>
-      </xsl:apply-templates>
+      <xsl:call-template name="xml-to-string">
+        <xsl:with-param name="node-set" select="*"/>
+      </xsl:call-template>
     </div>
   </xsl:template>
   
