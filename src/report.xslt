@@ -9,8 +9,7 @@
   
   <xsl:output method="xhtml"
 	      indent="yes"
-	      encoding="utf-8"
-	      />
+	      encoding="utf-8"/>
   
   <xsl:param name="title">Test Results</xsl:param>
   <xsl:param name="css" select="resolve-uri('report.css')"/>
