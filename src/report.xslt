@@ -62,9 +62,9 @@
     </xsl:if>
   </xsl:template>
   
-  <xsl:template match="test:assert[test:actual and test:expected]">
+  <xsl:template match="test:assert[test:expr and test:actual and test:expected]">
     <xsl:if test="@result = 'failed'">
-      <div class="diagnostics">
+      <div class="failed diagnostics">
 	<table>
 	  <tr><th>Expression</th><td><xsl:apply-templates select="test:expr"/></td></tr>
 	  <tr><th>Expected</th><td><xsl:apply-templates select="test:expected"/></td></tr>
@@ -76,7 +76,7 @@
   
   <xsl:template match="test:assert[test:original and test:expected and test:transformed]">
     <xsl:if test="@result = 'failed'">
-      <div class="diagnostics">
+      <div class="failed diagnostics">
 	<p>Transform failed:</p>
 	<table>
 	  <tr><th>Original</th><td><xsl:apply-templates select="test:original"/></td></tr>
@@ -87,11 +87,17 @@
     </xsl:if>
   </xsl:template>
   
-  <xsl:template match="test:original|test:expected|test:transformed|test:actual|test:expr|test:diagnostic">
-    <div class="xmlverb-default">
-      <xsl:call-template name="xml-to-string">
-        <xsl:with-param name="node-set" select="*"/>
-      </xsl:call-template>
+  <xsl:template match="test:expr">
+    <div class="diagnostic">
+      <xsl:value-of select="."/>
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="test:original|test:expected|test:transformed|test:actual|test:diagnostic">
+    <div class="diagnostic">
+      <xsl:for-each select="*">
+        <xsl:call-template name="diagnostic"></xsl:call-template>
+      </xsl:for-each>
     </div>
   </xsl:template>
   
@@ -101,5 +107,16 @@
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template name="diagnostic">
+    <xsl:choose>
+      <xsl:when test="node()">
+        <xsl:call-template name="xml-to-string">
+          <xsl:with-param name="node-set" select="."/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>

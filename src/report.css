@@ -9,25 +9,14 @@ td, th                    { padding: 4px;
 			    font-weight: normal;
 			    text-align: left; }
 
-.xmlverb-default          { color: #333333; 
-			    background-color: #ffffff;
-                            font-family: monospace;
-			    white-space: nowrap;
-			    margin-bottom: 1em; }
-.xmlverb-element-name     { color: #990000 }
-.xmlverb-element-nsprefix { color: #666600 }
-.xmlverb-attr-name        { color: #660000 }
-.xmlverb-attr-content     { color: #000099; font-weight: bold }
-.xmlverb-ns-name          { color: #666600 }
-.xmlverb-ns-uri           { color: #330099 }
-.xmlverb-text             { color: #000000; font-weight: bold }
-.xmlverb-comment          { color: #006600; font-style: italic }
-.xmlverb-pi-name          { color: #006600; font-style: italic }
-.xmlverb-pi-content       { color: #006666; font-style: italic }
+.diagnostic               { font-family: monospace;
+			    white-space: pre;
+                            padding: 0.25em; }
 
 .suite                    { padding: 0.25em; }
 
-.failed                   { background-color: #ffaaaa; }
+.failed                   { border: 1px solid red;
+                            background-color: #ffaaaa; }
 .passed                   { background-color: #aaffaa; }
 .assert                   { padding: 0.2em;
 			    margin-left: 3em; 
