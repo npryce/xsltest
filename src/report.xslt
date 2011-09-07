@@ -87,16 +87,10 @@
     </xsl:if>
   </xsl:template>
   
-  <xsl:template match="test:expr">
+  <xsl:template match="test:original|test:expected|test:transformed|test:actual|test:diagnostic|test:expr">
     <div class="diagnostic">
-      <xsl:value-of select="."/>
-    </div>
-  </xsl:template>
-  
-  <xsl:template match="test:original|test:expected|test:transformed|test:actual|test:diagnostic">
-    <div class="diagnostic">
-      <xsl:for-each select="*">
-        <xsl:call-template name="diagnostic"></xsl:call-template>
+      <xsl:for-each select="node()|@*">
+        <xsl:call-template name="diagnostic"/>
       </xsl:for-each>
     </div>
   </xsl:template>
